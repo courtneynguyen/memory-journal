@@ -1,9 +1,16 @@
 var express = require('express');
-var app = express();
+
 var Photograph = require('./server/models/photograph');
 
-app.post('/photographs', function(req, res){
+module.exports = (function(){
 
-});
+	var router = express.Router();
 
-app.listen(3000);
+	router.get('/photographs', function(req, res){
+		Photograph.find({}, function(err, data){
+			res.json(data);
+		});
+		console.log(req);
+	});
+	return router;
+})();

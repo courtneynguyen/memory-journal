@@ -1,0 +1,12 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.photos {
+	width: 100%;
+}
+.photos img {
+	width: 100%;
+}
