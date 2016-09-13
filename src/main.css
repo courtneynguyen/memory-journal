@@ -1,12 +1,62 @@
+@import 'https://fonts.googleapis.com/css?family=Covered+By+Your+Grace';
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+ol, li {
+	list-style-type: none;
+}
+
 .photos {
 	width: 100%;
 }
+.photograph {
+	font-family: 'Covered By Your Grace', cursive;
+	font-size: 29px;
+	display: none;
+}
+.photograph.selected {
+    width: 600px;
+    background: whitesmoke;
+    padding: 20px 20px 100px;
+    display: block;
+    margin: 50px auto;
+    box-shadow: #b9b9b9 0px 0px 16px 4px;
+}
+
+.photograph.selected img {
+    width: 100%;
+    display: block;
+}
+
 .photos img {
-	width: 100%;
+	display: none;
+	margin-bottom: 20px;
+}
+
+#nav-timeline{
+	position: absolute;
+}
+
+#nav-timeline ol{
+	width: 200px;
+}
+
+ol#month-time > li {
+    background: pink;
+    width: 101px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+li.tick {
+    display: block;
+    background: skyblue;
+    width: 50px;
+    height: 6px;
+    margin: 15px 0;
+
 }
