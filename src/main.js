@@ -27,13 +27,11 @@ var memoryJournal = (function($){
 				timeline[month][day] = {
 					pictures: []
 				};
-				selectedPhoto.selected = true;
 			}
 			if(!timeline[month][day]){
 				timeline[month][day] = {
 					pictures: []
 				}
-				selectedPhoto.selected = true;
 			}
 			timeline[month][day].pictures.push(selectedPhoto);
 		});
@@ -61,14 +59,22 @@ var memoryJournal = (function($){
 				$('#month-time').append('<li>' + months[month] + ticks + '</li>');
 			}
 		});
+
+		addListeners();
 	};
 
 	var createTicks = function(month){
 		var ticks = '<ol>';
-		timeline[month].ticks = Object.keys(timeline[month]).length;
-		for(var x = 0; x < timeline[month].ticks; x++){
-			ticks += '<li class="tick"></li>';
-		}
+		// timeline[month].ticks = Object.keys(timeline[month]).length;
+		Object.keys(timeline[month]).forEach(function(day){
+			timeline[month][day].pictures.forEach(function(photo){
+				ticks += '<li class="tick" data-photo-id="'+photo.id+'"></li>';
+			});
+			
+		});
+		// for(var x = 0; x < timeline[month].ticks; x++){
+		// 	ticks += '<li class="tick"></li>';
+		// }
 		ticks += '</ol>';
 		return ticks;
 	};
@@ -77,13 +83,26 @@ var memoryJournal = (function($){
 		
 		data.forEach(function(photograph, index){
 			if(index == 0){
-				$('.photos').append('<div class="photograph selected"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
+				$('.photos').append('<div id="'+photograph._id+'" class="photograph selected"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
 			}
 			else {
-				$('.photos').append('<div class="photograph"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
+				$('.photos').append('<div id="'+photograph._id+'" class="photograph"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
 			}
 		});
 		
+	};
+
+	var addListeners = function(){
+		var $dayList = $('#month-time > li > ol > li');
+		$dayList.on('click', null, $dayList, changePhoto);
+	};
+
+	var changePhoto = function(event){
+		var photoId = event.target.dataset.photoId;
+		$('.photograph').removeClass('selected');
+		$('#'+photoId).addClass('selected');
+
+		console.log(arguments);
 	};
 
 	$.ajax({
