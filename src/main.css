@@ -6,6 +6,17 @@
 	box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
+h2 {
+    font-size: 90px;
+    font-family: sans-serif;
+    text-align: center;
+    color: white;
+}
+
 ol, li {
 	list-style-type: none;
 }
@@ -59,4 +70,72 @@ li.tick {
     height: 6px;
     margin: 15px 0;
 
+}
+
+@keyframes blinks {
+    50% {
+        background: hsl(4, 55%, 57%);
+    }
+}
+.blink {
+    background: hsl(4, 57%, 48%);
+    animation: blinks 4s infinite;
+}
+
+#love{
+    height: 100%;
+}
+
+#love span {
+    font-size: 68px;
+    position: relative;
+    line-height: 10;
+    text-align: center;
+    display: block;
+    width: 100%;
+    z-index: 10;
+    font-family: 'Covered By Your Grace', cursive;
+    color:white;
+}
+
+#heart {
+    position: relative;
+    width: 822px;
+    height: 740px;
+    margin: 0 auto;
+}
+#heart:before,
+#heart:after {
+    position: absolute;
+    content: "";
+    left: 400px;
+    top: 0;
+    width: 400px;
+    height: 740px;
+    background: #ab2323;
+    -moz-border-radius: 50% 50% 0 0;
+    border-radius: 50% 50% 0 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+#heart:after {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    transform-origin :100% 100%;
 }
