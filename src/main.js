@@ -7,14 +7,16 @@ $(document).ready(function(){
 			shape: 'circle',
 			distance: 100
 		};
+		var selectedPhotoIndex = 0;
 
 		var setup = function(data){
 			photos = data;
 			sortedPhotos = photos.sort(function(a, b){
 				return a.taken > b.taken;
 			});
-			createTimeline();
 			postPhotos(sortedPhotos);
+			createTimeline();
+
 			var memories = $('#memories');
 			setTimeout(function(){
 				$('html, body').animate({
@@ -62,22 +64,27 @@ $(document).ready(function(){
 				'10': 'Nov.',
 				'11': 'Dec.',
 			};
+			var i = 0;
 			Object.keys(months).forEach(function(month){
 				if(timeline[month]){
-					var ticks = createTicks(month);
+					var ticks = createTicks(month, i);
 					$('#month-time').append('<li>' + months[month] + ticks + '</li>');
+					i++;
 				}
 			});
 
 			addListeners();
 		};
 
-		var createTicks = function(month){
+		var createTicks = function(month, index){
 			var ticks = '<ol>';
 			// timeline[month].ticks = Object.keys(timeline[month]).length;
-			Object.keys(timeline[month]).forEach(function(day){
-				timeline[month][day].pictures.forEach(function(photo){
+			Object.keys(timeline[month]).forEach(function(day, i){
+				timeline[month][day].pictures.forEach(function(photo, j){
 					ticks += '<li class="tick" data-photo-id="'+photo.id+'"></li>';
+					if(index == 0 && i == 0 && j == 0){
+						$('#'+ photo.id).addClass('selected');
+					}
 				});
 
 			});
@@ -92,7 +99,7 @@ $(document).ready(function(){
 
 			data.forEach(function(photograph, index){
 				if(index == 0){
-					$('.photos').append('<div id="'+photograph._id+'" class="photograph selected"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
+					$('.photos').append('<div id="'+photograph._id+'" class="photograph"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
 				}
 				else {
 					$('.photos').append('<div id="'+photograph._id+'" class="photograph"><img src="data:image/jpg;base64,'+photograph.picture+'" />'+ photograph.caption +'</div>');
@@ -114,15 +121,18 @@ $(document).ready(function(){
 			console.log(arguments);
 		};
 
-		$.ajax({
-			url: 'http://localhost:3000/photographs',
-			success: setup,
-			crossDomain: true,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-			}
-		});
+		setTimeout(function(){
+			$.ajax({
+				url: 'http://localhost:3000/photographs',
+				success: setup,
+				crossDomain: true,
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+				}
+			});
+		}, 2000);
+
 
 	})(jQuery);
 });

@@ -22,7 +22,7 @@ ol, li {
 }
 
 .photos {
-	width: 100%;
+	width: 75%;
 }
 .photograph {
 	font-family: 'Covered By Your Grace', cursive;
@@ -46,10 +46,6 @@ ol, li {
 .photos img {
 	display: none;
 	margin-bottom: 20px;
-}
-
-#nav-timeline{
-	position: absolute;
 }
 
 #nav-timeline ol{
@@ -80,6 +76,11 @@ li.tick {
 .blink {
     background: hsl(4, 57%, 48%);
     animation: blinks 4s infinite;
+}
+
+div#memories {
+    background: hsl(352, 100%, 84%);
+    display: flex;
 }
 
 #love{
